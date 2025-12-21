@@ -10,6 +10,8 @@ def custom_import(name, *args, **kwargs):
     module = origin_import(name, *args, **kwargs)
     if not hasattr(module, '__file__'):
         return module
+    if module.__name__ == "warnings":
+        return module
     try:
         patch_module(module, trans=AssignTransformer)
     except:
